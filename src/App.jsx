@@ -7,24 +7,33 @@ import { Logo } from "./components/Logo/Logo";
 import logo from "./assets/images/logo.png";
 import { TVShowListItem } from "./components/TVShowListItem/TVShowListItem";
 import {TVShowList} from "./components/TVShowList/TVShowList";
+import {SearchBar} from "./components/SearchBar/SearchBar";
 
 export function App() {
     const [currentTVShow, setCurrentTVShow] = useState();
     const [recommendationList, setRecommendationList] = useState([]);
 
     async function fetchPopulars() {
-        const populars = await TVShowAPI.fetchPopulars();
-        if (populars.length > 0) {
-            setCurrentTVShow(populars[0]);
+        try {
+            const populars = await TVShowAPI.fetchPopulars();
+            if (populars.length > 0) {
+                setCurrentTVShow(populars[0]);
+            }
+        } catch (error) {
+            alert(
+                "Erreur durant la recherche des séries populaires " + error.message
+            );
         }
     }
 
     async function fetchRecommendations(tvShowId) {
-        const recommendations = await TVShowAPI.fetchRecommendations(
-            tvShowId
-        );
-        if (recommendations.length > 0) {
-            setRecommendationList(recommendations.slice(0, 10));
+        try {
+            const recommendations = await TVShowAPI.fetchRecommendations(tvShowId);
+            if (recommendations.length > 0) {
+                setRecommendationList(recommendations.slice(0, 10));
+            }
+        } catch (error) {
+            alert("Erreur durant la recherche des séries recommendées");
         }
     }
 
@@ -42,6 +51,17 @@ export function App() {
         alert(JSON.stringify(tvShow));
     }
 
+    async function searchTVShow(tvShowName) {
+        try {
+            const searchResponse = await TVShowAPI.fetchByTitle(tvShowName);
+            if (searchResponse.length > 0) {
+                setCurrentTVShow(searchResponse[0]);
+            }
+        } catch (error) {
+            alert("Erreur durant la recherche de la série ");
+        }
+    }
+
     return (
         <div className={s.main_container}
              style={{background: currentTVShow ? `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("${BACKDROP_BASE_URL}${currentTVShow.backdrop_path}") no-repeat center / cover` : "black"}}>
@@ -51,7 +71,7 @@ export function App() {
                         <Logo image={logo} title="fTV's" subtitle="Find & watch a show easily"/>
                     </div>
                     <div className="col-sm-12 col-md-4">
-                        <input style={{width: "100%"}} type="text"/>
+                        <SearchBar onSubmit={searchTVShow}/>
                     </div>
                 </div>
             </div>

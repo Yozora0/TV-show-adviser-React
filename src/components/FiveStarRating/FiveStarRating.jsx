@@ -7,6 +7,7 @@ export function FiveStarRating({rating}) {
     // Stocker dans une variable le nombre d'étoile pleine
     const starFillCount = Math.floor(rating);
 
+
     // Stocker dans une variable si oui ou non il y'a une demi étoile
     const hasStarHalf = rating - starFillCount >= 0.5;
 

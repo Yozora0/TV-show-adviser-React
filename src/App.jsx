@@ -4,6 +4,9 @@ import {TVShowAPI} from "./api/tv-show";
 import {useEffect, useState} from "react";
 import {BACKDROP_BASE_URL} from "./config";
 import {TVShowDetail} from "./components/TVShowDetail/TVShowDetail";
+import {Logo} from "./components/Logo/Logo";
+import logo from './assets/images/logo.png';
+
 
 export function App() {
     const [currentTVShow, setCurrentTVShow] = useState();
@@ -26,8 +29,7 @@ export function App() {
             <div className={s.header}>
                 <div className="row">
                     <div className="col-4">
-                        <div>Logo here</div>
-                        <div>subtitle</div>
+                        <Logo image={logo} title="fTV's" subtitle="Find & watch a show easily"/>
                     </div>
                     <div className="col-sm-12 col-md-4">
                         <input style={{width: "100%"}} type="text"/>

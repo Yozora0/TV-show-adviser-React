@@ -1,0 +1,31 @@
+.title {
+    font-family: Roboto;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.list {
+    display: flex;
+    width: calc(100vw - 25px);
+    overflow-x: scroll;
+    padding-bottom: 10px;
+}
+
+.tv_show_list_item {
+    margin-right: 20px;
+}
+
+/* Ajout d'une classe pour styler la barre de défilement seulement si elle est toujours visible */
+.alwaysVisibleScrollbar::-webkit-scrollbar {
+    height: 12px;
+}
+
+.alwaysVisibleScrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 6px;
+}
+
+.alwaysVisibleScrollbar::-webkit-scrollbar-track {
+    background-color: rgba(37, 37, 37, 0.85);
+    border-radius: 6px;
+}

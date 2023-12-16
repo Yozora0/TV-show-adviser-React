@@ -3,19 +3,22 @@
     height: 100vh;
     padding: 25px;
     flex-direction: column;
+    background-color: black;
 }
 
 .header{
     flex: 1;
-    background-color:red;
 }
 
 .tv_show_details{
     flex: 2;
-    background-color:blue;
 }
 
 .recommended_shows{
     flex: 1;
-    background-color:green;
+}
+
+body{
+    color: white;
+    font-family: Maximum Impact;
 }

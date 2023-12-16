@@ -1,4 +1,12 @@
-body{
-    color: white;
-    font-family: Maximum Impact;
+body {
+        color: white;
+    font-family: 'Maximum Impact', sans-serif;
+}
+
+body::-webkit-scrollbar {
+    width: 0.5em; /* Largeur de la barre de défilement pour Chrome et Safari */
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #888; /* Couleur de la poignée de la barre de défilement */
 }

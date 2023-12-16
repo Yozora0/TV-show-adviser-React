@@ -17,3 +17,8 @@
 .recommended_shows{
     flex: 1;
 }
+
+body{
+    color: white;
+    font-family: Maximum Impact;
+}

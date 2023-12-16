@@ -1,15 +1,16 @@
-import './global.css';
+import { useEffect, useState } from "react";
+import { TVShowAPI } from "./api/tv-show";
+import { BACKDROP_BASE_URL } from "./config";
 import s from "./style.module.css";
-import {TVShowAPI} from "./api/tv-show";
-import {useEffect, useState} from "react";
-import {BACKDROP_BASE_URL} from "./config";
-import {TVShowDetail} from "./components/TVShowDetail/TVShowDetail";
-import {Logo} from "./components/Logo/Logo";
-import logo from './assets/images/logo.png';
-
+import { TVShowDetail } from "./components/TVShowDetail/TVShowDetail";
+import { Logo } from "./components/Logo/Logo";
+import logo from "./assets/images/logo.png";
+import { TVShowListItem } from "./components/TVShowListItem/TVShowListItem";
+import {TVShowList} from "./components/TVShowList/TVShowList";
 
 export function App() {
     const [currentTVShow, setCurrentTVShow] = useState();
+    const [recommendationList, setRecommendationList] = useState([]);
 
     async function fetchPopulars() {
         const populars = await TVShowAPI.fetchPopulars();
@@ -17,11 +18,29 @@ export function App() {
             setCurrentTVShow(populars[0]);
         }
     }
+
+    async function fetchRecommendations(tvShowId) {
+        const recommendations = await TVShowAPI.fetchRecommendations(
+            tvShowId
+        );
+        if (recommendations.length > 0) {
+            setRecommendationList(recommendations.slice(0, 10));
+        }
+    }
+
     useEffect(() => {
         fetchPopulars();
     }, []);
 
-    console.log("***", currentTVShow);
+    useEffect(() => {
+        if (currentTVShow) {
+            fetchRecommendations(currentTVShow.id);
+        }
+    }, [currentTVShow]);
+
+    function setCurrentTvShowFromRecommendation(tvShow) {
+        alert(JSON.stringify(tvShow));
+    }
 
     return (
         <div className={s.main_container}
@@ -39,7 +58,11 @@ export function App() {
             <div className={s.tv_show_details}>
                 {currentTVShow && <TVShowDetail tvShow={currentTVShow}/>}
             </div>
-            <div className={s.recommended_shows}>Recommended tv shows</div>
+            <div className={s.recommended_shows}>
+                {currentTVShow && recommendationList.length > 0 && (
+                    <TVShowList onClickItem={setCurrentTVShow} tvShowList={recommendationList}/>
+                    )}
+            </div>
         </div>
     );
 }

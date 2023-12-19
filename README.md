@@ -6,6 +6,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### Environment variable
+
+⚠️You will need to put your api key from TMDB in a .env file with this syntax : REACT_APP_API_KEY_PARAM="your api key"⚠️
+
 ### `npm start`
 
 Runs the app in the development mode.\
